@@ -173,8 +173,6 @@ public class ControllerManager : MonoBehaviour
 
             _currentRight = right;
         }
-
-
     }
 
     public void SetRumbleStrength(RumbleStrength rumbleStrength)
@@ -209,4 +207,23 @@ public class ControllerManager : MonoBehaviour
         return DualSenseTriggerEffectType.NoResistance;
     }
 
+    bool pulse = false;
+
+    public void PulseController(bool x, RumbleStrength rumbleStrength)
+    {
+        pulse = x;
+        if (pulse)
+            StartCoroutine(RumblePulse(rumbleStrength));
+    }
+
+    IEnumerator RumblePulse(RumbleStrength rumbleStrength)
+    {
+        while(pulse)
+        {
+            SetRumbleStrength(rumbleStrength);
+            yield return new WaitForSecondsRealtime(0.25f);
+            SetRumbleStrength(RumbleStrength.none);
+            yield return new WaitForSecondsRealtime(0.25f);
+        }
+    }
 }

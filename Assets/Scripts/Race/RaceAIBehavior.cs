@@ -38,6 +38,11 @@ public class RaceAIBehavior : MonoBehaviour
             _cm.SetTriggerHaptics(ControllerManager.TriggerHapticStrength.ignore, ControllerManager.TriggerHapticStrength.off);
         }
 
+
+        if (_shouldTurnLeft || _shouldTurnRight)
+            _cm.PulseController(true, ControllerManager.RumbleStrength.medium);
+        else
+            _cm.PulseController(false, ControllerManager.RumbleStrength.medium);
     }
 
     private void OnTriggerEnter(Collider other)
