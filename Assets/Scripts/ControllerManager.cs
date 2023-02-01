@@ -221,9 +221,9 @@ public class ControllerManager : MonoBehaviour
         while(pulse)
         {
             SetRumbleStrength(rumbleStrength);
-            yield return new WaitForSecondsRealtime(0.25f);
+            yield return new WaitForSecondsRealtime(0.5f);
             SetRumbleStrength(RumbleStrength.none);
-            yield return new WaitForSecondsRealtime(0.25f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
 }

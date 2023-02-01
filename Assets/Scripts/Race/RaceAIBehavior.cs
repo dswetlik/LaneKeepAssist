@@ -18,7 +18,7 @@ public class RaceAIBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_shouldTurnLeft)
         {
@@ -47,6 +47,7 @@ public class RaceAIBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if(other.name.Equals("InnerCollider"))
         {
             _shouldTurnLeft = true;
@@ -56,10 +57,17 @@ public class RaceAIBehavior : MonoBehaviour
         {
             _shouldTurnRight = false;
         }
+        */
+
+        if (other.tag.Equals("RightTurnTrigger"))
+            _shouldTurnRight = true;
+        if (other.tag.Equals("LeftTurnTrigger"))
+            _shouldTurnLeft = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
+        /*
         if (other.name.Equals("InnerCollider"))
         {
             _shouldTurnLeft = false;
@@ -69,6 +77,12 @@ public class RaceAIBehavior : MonoBehaviour
         {
             _shouldTurnRight = true;
         }
+        */
+
+        if (other.tag.Equals("RightTurnTrigger"))
+            _shouldTurnRight = false;
+        if (other.tag.Equals("LeftTurnTrigger"))
+            _shouldTurnLeft = false;
     }
 
 
