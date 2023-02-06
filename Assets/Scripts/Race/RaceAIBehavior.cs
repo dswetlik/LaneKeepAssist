@@ -47,18 +47,6 @@ public class RaceAIBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /*
-        if(other.name.Equals("InnerCollider"))
-        {
-            _shouldTurnLeft = true;
-        }
-        
-        if(other.name.Equals("OuterCollider"))
-        {
-            _shouldTurnRight = false;
-        }
-        */
-
         if (other.tag.Equals("RightTurnTrigger"))
             _shouldTurnRight = true;
         if (other.tag.Equals("LeftTurnTrigger"))
@@ -67,18 +55,6 @@ public class RaceAIBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        /*
-        if (other.name.Equals("InnerCollider"))
-        {
-            _shouldTurnLeft = false;
-        }
-
-        if (other.name.Equals("OuterCollider"))
-        {
-            _shouldTurnRight = true;
-        }
-        */
-
         if (other.tag.Equals("RightTurnTrigger"))
             _shouldTurnRight = false;
         if (other.tag.Equals("LeftTurnTrigger"))

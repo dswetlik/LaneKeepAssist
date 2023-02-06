@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RightTurnTrigger
   - LeftTurnTrigger
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
