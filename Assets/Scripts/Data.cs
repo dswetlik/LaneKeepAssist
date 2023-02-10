@@ -67,8 +67,6 @@ public class Data
 
     public void OutputData()
     {
-        UnityEngine.Debug.Log(string.Format("{0},{1},{2},{3}",_lapTime.Count,_aTime.Count,_bTime.Count,_cTime.Count));
-
         List<Row> rows = new List<Row>();
         for (int i = 0; i < _lapTime.Count; i++)
             rows.Add(new Row {

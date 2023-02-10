@@ -127,7 +127,6 @@ public class ControllerManager : MonoBehaviour
 
     public void SetTriggerHaptics(TriggerHapticStrength left, TriggerHapticStrength right)
     {
-        Debug.Log("Setting Trigger Haptics");
         if (left != _currentLeft)
         {
             switch (left)
