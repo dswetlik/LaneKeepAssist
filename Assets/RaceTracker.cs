@@ -13,6 +13,8 @@ public class RaceTracker : MonoBehaviour
     [SerializeField] int _maxLaps;
     [SerializeField] int _lapCount;
 
+    public GameObject finishTextObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,7 @@ public class RaceTracker : MonoBehaviour
                     {
                         data.StopTime();
                         data.OutputData();
+                        finishTextObject.SetActive(true);
                     }
                 }
             }
