@@ -76,7 +76,7 @@ public class Data
                 CheckpointCTime = _cTime[i]
             });
 
-        using (StreamWriter writer = new StreamWriter(@"D:\Unity\Projects\LaneKeepAssist\CSVs\data.csv"))
+        using (StreamWriter writer = new StreamWriter(Application.dataPath + @"\data.csv"))
         {
             writer.WriteLine("sep=,");
             writer.WriteLine("LapTime,CheckpointATime,CheckpointBTime,CheckpointCTime");
