@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dreamteck.Splines;
+using System.Linq;
 
 public class RaceAIBehavior : MonoBehaviour
 {
@@ -10,11 +12,16 @@ public class RaceAIBehavior : MonoBehaviour
     [SerializeField] bool _shouldTurnLeft;
     [SerializeField] bool _shouldTurnRight;
 
+    [SerializeField] bool _lka;
+    [SerializeField] bool _ldw;
 
     // Start is called before the first frame update
     void Start()
     {
         _cm = GameObject.Find("GameManager").GetComponent<ControllerManager>();
+
+        if (_lka)
+            StartCoroutine(FollowNodes());
     }
 
     // Update is called once per frame
@@ -47,19 +54,35 @@ public class RaceAIBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("RightTurnTrigger"))
-            _shouldTurnRight = true;
-        if (other.tag.Equals("LeftTurnTrigger"))
-            _shouldTurnLeft = true;
+        if (_ldw)
+        {
+            if (other.tag.Equals("RightTurnTrigger"))
+                _shouldTurnRight = true;
+            if (other.tag.Equals("LeftTurnTrigger"))
+                _shouldTurnLeft = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("RightTurnTrigger"))
-            _shouldTurnRight = false;
-        if (other.tag.Equals("LeftTurnTrigger"))
-            _shouldTurnLeft = false;
+        if (_ldw)
+        {
+            if (other.tag.Equals("RightTurnTrigger"))
+                _shouldTurnRight = false;
+            if (other.tag.Equals("LeftTurnTrigger"))
+                _shouldTurnLeft = false;
+        }
     }
 
+    public IEnumerator FollowNodes()
+    {
 
+        
+        while (_lka)
+        {
+
+
+            yield return new WaitForSecondsRealtime(1.0f);
+        }
+    }
 }

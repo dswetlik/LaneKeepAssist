@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8107671134224847135}
   m_Layer: 0
-  m_Name: LeftCurve
+  m_Name: Left90Curve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
