@@ -2039,8 +2039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shouldTurnLeft: 0
   _shouldTurnRight: 0
-  _lka: 0
-  _ldw: 1
+  _lka: 1
+  _ldw: 0
 --- !u!54 &1119798163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2776,7 +2776,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333717839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.71536, y: -0.00000023841858, z: 34.15}
+  m_LocalPosition: {x: 44.9, y: 0, z: 35.08}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2968,7 +2968,7 @@ GameObject:
   - component: {fileID: 1119798157}
   - component: {fileID: 1119798158}
   - component: {fileID: 1119798164}
-  - component: {fileID: 1333717841}
+  - component: {fileID: 1333717842}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2989,7 +2989,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1721282, y: 1.3089987, z: 5.1654243}
   m_Center: {x: -0.0000015497208, y: 0.8805966, z: 0.11457074}
---- !u!114 &1333717841
+--- !u!114 &1333717842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2998,7 +2998,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333717839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868482a8001bf104dbe8c2415d018860, type: 3}
+  m_Script: {fileID: 11500000, guid: 453ef2bcc92003342b9fe6a327abc98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateMethod: 0
@@ -3070,24 +3070,33 @@ MonoBehaviour:
     applyScaleX: 0
     applyScaleY: 0
     applyScaleZ: 0
-    targetUser: {fileID: 0}
+    targetUser: {fileID: 1333717842}
   targetRigidbody: {fileID: 0}
   targetRigidbody2D: {fileID: 0}
-  targetTransform: {fileID: 1333427117}
+  targetTransform: {fileID: 0}
   _result:
-    position: {x: 0, y: 0, z: 0}
-    up: {x: 0, y: 0, z: 0}
-    forward: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 0}
-    size: 0
-    percent: 0
+    position: {x: 44.72934, y: 0, z: 35.073086}
+    up: {x: 0, y: 1, z: 0}
+    forward: {x: -0.16087441, y: 0, z: 0.9869749}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    size: 2.5
+    percent: 0.9637599641626531
   _finalResult:
-    position: {x: 0, y: 0, z: 0}
-    up: {x: 0, y: 0, z: 0}
-    forward: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 0}
-    size: 0
-    percent: 0
+    position: {x: 44.72934, y: 0, z: 35.073086}
+    up: {x: 0, y: 1, z: 0}
+    forward: {x: -0.16087441, y: 0, z: 0.9869749}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    size: 2.5
+    percent: 0.9637599641626531
+  _mode: 1
+  _autoProject: 1
+  _subdivide: 4
+  _projectTarget: {fileID: 1333427117}
+  applyTarget: {fileID: 0}
+  _targetObject: {fileID: 0}
+  _offset: {x: 0, y: 0}
+  _rotationOffset: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 44.9, y: 0, z: 35.08}
 --- !u!1 &1333727049
 GameObject:
   m_ObjectHideFlags: 0
@@ -3793,7 +3802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1764036419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3919,7 +3928,7 @@ MonoBehaviour:
   _space: 1
   _sampleMode: 0
   _subscribers:
-  - {fileID: 1333717841}
+  - {fileID: 1333717842}
   _rawSamples:
   - position: {x: 44.657608, y: 0, z: 36.842796}
     up: {x: 0, y: 1, z: 0}
