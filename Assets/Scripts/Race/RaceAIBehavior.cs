@@ -45,11 +45,18 @@ public class RaceAIBehavior : MonoBehaviour
             _cm.SetTriggerHaptics(ControllerManager.TriggerHapticStrength.ignore, ControllerManager.TriggerHapticStrength.off);
         }
 
+        SplineProjector _sp = GetComponent<SplineProjector>();
+        Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.001) % 1.0);
+        Debug.DrawLine(transform.position, transform.forward, Color.blue, 1);
+        Debug.DrawLine(transform.position, toNav, Color.red, 1);
 
-        if (_shouldTurnLeft || _shouldTurnRight)
-            _cm.PulseController(true, ControllerManager.RumbleStrength.medium);
-        else
-            _cm.PulseController(false, ControllerManager.RumbleStrength.medium);
+        if (_ldw)
+        {
+            if (_shouldTurnLeft || _shouldTurnRight)
+                _cm.PulseController(true, ControllerManager.RumbleStrength.medium);
+            else
+                _cm.PulseController(false, ControllerManager.RumbleStrength.medium);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,12 +84,39 @@ public class RaceAIBehavior : MonoBehaviour
     public IEnumerator FollowNodes()
     {
 
+        SplineProjector _sp = GetComponent<SplineProjector>();
         
         while (_lka)
         {
+            
+            Debug.Log("NavPerc: " + (_sp.GetPercent() + 0.001) % 1.0);
+            Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.001) % 1.0);
+            
+            
+            float dist = Vector3.Distance(transform.position, toNav);
+            float ang = Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
 
+            Debug.Log("SignedAng: " + ang);
+            Debug.DrawRay(transform.position, transform.forward, Color.blue);
+            Debug.DrawRay(transform.position, toNav - transform.position, Color.red);
 
-            yield return new WaitForSecondsRealtime(1.0f);
+            if (ang > 2.0f)
+            {
+                _shouldTurnRight = true;
+                _shouldTurnLeft = false;
+            }
+            else if (ang < -2.0f)
+            {
+                _shouldTurnRight = false;
+                _shouldTurnLeft = true;
+            }
+            else
+            {
+                _shouldTurnRight = false;
+                _shouldTurnLeft = false;
+            }
+
+            yield return new WaitForSecondsRealtime(0.05f);
         }
     }
 }
