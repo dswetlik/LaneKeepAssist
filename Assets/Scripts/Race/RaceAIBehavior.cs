@@ -15,6 +15,8 @@ public class RaceAIBehavior : MonoBehaviour
     [SerializeField] bool _lka;
     [SerializeField] bool _ldw;
 
+    [SerializeField] GameObject _sphere;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,11 +46,6 @@ public class RaceAIBehavior : MonoBehaviour
         {
             _cm.SetTriggerHaptics(ControllerManager.TriggerHapticStrength.ignore, ControllerManager.TriggerHapticStrength.off);
         }
-
-        SplineProjector _sp = GetComponent<SplineProjector>();
-        Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.001) % 1.0);
-        Debug.DrawLine(transform.position, transform.forward, Color.blue, 1);
-        Debug.DrawLine(transform.position, toNav, Color.red, 1);
 
         if (_ldw)
         {
@@ -85,20 +82,27 @@ public class RaceAIBehavior : MonoBehaviour
     {
 
         SplineProjector _sp = GetComponent<SplineProjector>();
-        
+        GameObject go = Instantiate(_sphere);
+
         while (_lka)
         {
             
-            Debug.Log("NavPerc: " + (_sp.GetPercent() + 0.001) % 1.0);
-            Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.001) % 1.0);
-            
-            
+            Debug.Log("NavPerc: " + (_sp.GetPercent() + 0.05) % 1.0);
+            Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.05) % 1.0);
+
+            go.transform.position = toNav;
+
             float dist = Vector3.Distance(transform.position, toNav);
-            float ang = Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
+
+            Vector3 vecA = transform.forward + transform.position;
+
+            float ang = Vector3.SignedAngle(vecA, transform.forward + toNav, Vector3.up);
+
+            Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue, 1);
+            Debug.DrawLine(transform.position, go.transform.position, Color.red, 1);
+
 
             Debug.Log("SignedAng: " + ang);
-            Debug.DrawRay(transform.position, transform.forward, Color.blue);
-            Debug.DrawRay(transform.position, toNav - transform.position, Color.red);
 
             if (ang > 2.0f)
             {
