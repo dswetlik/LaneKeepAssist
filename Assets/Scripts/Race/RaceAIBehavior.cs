@@ -96,10 +96,10 @@ public class RaceAIBehavior : MonoBehaviour
 
             Vector3 vecA = transform.forward + transform.position;
 
-            float ang = Vector3.SignedAngle(vecA, transform.forward + toNav, Vector3.up);
+            float ang = Vector3.SignedAngle(transform.forward, go.transform.position - transform.position, Vector3.up);
 
-            Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue, 1);
-            Debug.DrawLine(transform.position, go.transform.position, Color.red, 1);
+            Debug.DrawRay(transform.position, transform.position + transform.forward, Color.blue, 1);
+            Debug.DrawRay(transform.position, go.transform.position - transform.position, Color.red, 1);
 
 
             Debug.Log("SignedAng: " + ang);
