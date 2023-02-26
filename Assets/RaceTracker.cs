@@ -52,7 +52,7 @@ public class RaceTracker : MonoBehaviour
                     }
                     else
                     {
-                        data.RecordTime(0);
+                        data.RecordTime();
                         _lapCount++;
                         if (_lapCount > _maxLaps)
                         {
@@ -60,28 +60,6 @@ public class RaceTracker : MonoBehaviour
                             data.OutputData();
                             finishTextObject.SetActive(true);
                         }
-                    }
-                }
-                else if (other.name.Equals("CheckpointA"))
-                {
-                    if (_raceOngoing)
-                    {
-                        data.RecordTime(1);
-                    }
-                }
-                else if (other.name.Equals("CheckpointB"))
-                {
-                    if (_raceOngoing)
-                    {
-                        data.RecordTime(2);
-                    }
-
-                }
-                else if (other.name.Equals("CheckpointC"))
-                {
-                    if (_raceOngoing)
-                    {
-                        data.RecordTime(3);
                     }
                 }
             }

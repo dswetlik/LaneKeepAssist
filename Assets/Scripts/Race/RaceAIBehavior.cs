@@ -15,8 +15,6 @@ public class RaceAIBehavior : MonoBehaviour
     [SerializeField] bool _lka;
     [SerializeField] bool _ldw;
 
-    [SerializeField] GameObject _sphere;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -82,27 +80,14 @@ public class RaceAIBehavior : MonoBehaviour
     {
 
         SplineProjector _sp = GetComponent<SplineProjector>();
-        GameObject go = Instantiate(_sphere);
 
         while (_lka)
         {
-            
-            Debug.Log("NavPerc: " + (_sp.GetPercent() + 0.05) % 1.0);
+
             Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.05) % 1.0);
 
-            go.transform.position = toNav;
-
             float dist = Vector3.Distance(transform.position, toNav);
-
-            Vector3 vecA = transform.forward + transform.position;
-
-            float ang = Vector3.SignedAngle(transform.forward, go.transform.position - transform.position, Vector3.up);
-
-            Debug.DrawRay(transform.position, transform.position + transform.forward, Color.blue, 1);
-            Debug.DrawRay(transform.position, go.transform.position - transform.position, Color.red, 1);
-
-
-            Debug.Log("SignedAng: " + ang);
+            float ang = Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
 
             if (ang > 2.0f)
             {

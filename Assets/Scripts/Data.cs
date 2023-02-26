@@ -10,20 +10,15 @@ public class Data
 
     Stopwatch _lapWatch;
 
-    List<long> _lapTime;
-    List<long> _aTime;
-    List<long> _bTime;
-    List<long> _cTime;
+    List<long> _lapTimes;
+    List<Vector3> _worldPositions;
+
 
     public Data()
     {
         _lapWatch = new Stopwatch();
 
-        _lapTime = new List<long>();
-
-        _aTime = new List<long>();
-        _bTime = new List<long>();
-        _cTime = new List<long>();
+        _lapTimes = new List<long>();
     }
 
     public void StartTime()
@@ -43,47 +38,27 @@ public class Data
         _lapWatch.Restart();
     }
 
-    public void RecordTime(int timer)
+    public void RecordTime()
     {
-        switch (timer)
-        {
-            case 0:
-                _lapTime.Add(_lapWatch.ElapsedMilliseconds);
-                ResetTime();
-                break;
-            case 1:
-                _aTime.Add(_lapWatch.ElapsedMilliseconds);
-                break;
-            case 2:
-                _bTime.Add(_lapWatch.ElapsedMilliseconds);
-                break;
-            case 3:
-                _cTime.Add(_lapWatch.ElapsedMilliseconds);
-                break;
-        }
-
-
+        _lapTimes.Add(_lapWatch.ElapsedMilliseconds);
+        ResetTime();
     }
 
     public void OutputData()
     {
         List<Row> rows = new List<Row>();
-        for (int i = 0; i < _lapTime.Count; i++)
+        for (int i = 0; i < _lapTimes.Count; i++)
             rows.Add(new Row {
-                LapTime = _lapTime[i],
-                CheckpointATime = _aTime[i],
-                CheckpointBTime = _bTime[i],
-                CheckpointCTime = _cTime[i]
+                LapTime = _lapTimes[i]
             });
 
-        using (StreamWriter writer = new StreamWriter(Application.dataPath + @"\data.csv"))
+        using (StreamWriter writer = new StreamWriter(Application.dataPath + @"\Data\data.csv"))
         {
             writer.WriteLine("sep=,");
             writer.WriteLine("LapTime,CheckpointATime,CheckpointBTime,CheckpointCTime");
             foreach(Row row in rows)
             {
-                writer.WriteLine(string.Format("{0},{1},{2},{3}",
-                    row.LapTime, row.CheckpointATime, row.CheckpointBTime, row.CheckpointCTime));
+                writer.WriteLine(string.Format("{0}", row.LapTime));
             }
         }
     }
@@ -93,7 +68,5 @@ public class Data
 public class Row
 {
     public long LapTime { get; set; }
-    public long CheckpointATime { get; set; }
-    public long CheckpointBTime { get; set; }
-    public long CheckpointCTime { get; set; }
+
 }
