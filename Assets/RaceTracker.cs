@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceTracker : MonoBehaviour
 {
@@ -10,26 +11,61 @@ public class RaceTracker : MonoBehaviour
     bool _raceOngoing;
     bool _isColliding;
 
+    [SerializeField] Scene _trackScene;
+    [SerializeField] int _raceNumber;
+
     [SerializeField] int _maxLaps;
     [SerializeField] int _lapCount;
 
     [SerializeField] bool _collectData;
 
+
+  
     public GameObject finishTextObject;
+
+    // DISTANCE DATA OBJECTS
+    float _distanceTravelled;
+    Vector3 _lastPosition;
+
+    // COLLISION DATA OBJECTS
 
     // Start is called before the first frame update
     void Start()
     {
         if (_collectData)
         {
-            data = new Data();
+            data = new Data(_trackScene.name, _raceNumber);
         }
         _isColliding = false;
+
+        _distanceTravelled = 0;
     }
 
     void Update()
     {
-        
+
+    }
+
+    void FixedUpdate()
+    {
+        if (_raceOngoing)
+        {
+            if (_lastPosition == null)
+                _lastPosition = transform.position;
+            else
+            {
+                _distanceTravelled += Vector3.Distance(transform.position, _lastPosition);
+                _lastPosition = transform.position;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(_collectData)
+        {
+
+        }
     }
 
     private void OnTriggerExit(Collider other)

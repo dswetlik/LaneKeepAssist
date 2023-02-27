@@ -8,15 +8,20 @@ using System.Globalization;
 public class Data
 {
 
+    string trackName;
+    int raceNum;
+
     Stopwatch _lapWatch;
 
     List<long> _lapTimes;
     List<Vector3> _worldPositions;
 
 
-    public Data()
+    public Data(string trackName, int raceNum)
     {
         _lapWatch = new Stopwatch();
+
+        this.raceNum = raceNum;
 
         _lapTimes = new List<long>();
     }
@@ -46,17 +51,27 @@ public class Data
 
     public void OutputData()
     {
-        List<Row> rows = new List<Row>();
+
+        string lapDataPath = Application.dataPath + @"\Data\Lap\" + trackName + @"_lap_data_" + raceNum + @".csv";
+
+        OutputLapRow(lapDataPath);
+
+    }
+
+    void OutputLapRow(string path)
+    {
+        List<LapRow> rows = new List<LapRow>();
         for (int i = 0; i < _lapTimes.Count; i++)
-            rows.Add(new Row {
+            rows.Add(new LapRow
+            {
                 LapTime = _lapTimes[i]
             });
 
-        using (StreamWriter writer = new StreamWriter(Application.dataPath + @"\Data\data.csv"))
+        using (StreamWriter writer = new StreamWriter(path))
         {
             writer.WriteLine("sep=,");
-            writer.WriteLine("LapTime,CheckpointATime,CheckpointBTime,CheckpointCTime");
-            foreach(Row row in rows)
+            writer.WriteLine("LapTime");
+            foreach (LapRow row in rows)
             {
                 writer.WriteLine(string.Format("{0}", row.LapTime));
             }
@@ -65,8 +80,9 @@ public class Data
 
 }
 
-public class Row
+public class LapRow
 {
     public long LapTime { get; set; }
+    public int CollisionCount { get; set; }
 
 }
