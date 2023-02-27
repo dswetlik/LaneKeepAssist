@@ -32,6 +32,17 @@ public class RaceTracker : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(_collectData)
+        {
+            if(other.tag.Equals("LeftTurnTrigger") || other.tag.Equals("RightTurnTrigger"))
+            {
+                StartCoroutine(TrackCollision());
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
 
@@ -67,4 +78,10 @@ public class RaceTracker : MonoBehaviour
             _isColliding = false;
         }
     }
+
+    IEnumerator TrackCollision()
+    {
+        yield return null;
+    }
+
 }
