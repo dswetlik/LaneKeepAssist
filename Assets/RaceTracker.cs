@@ -29,6 +29,7 @@ public class RaceTracker : MonoBehaviour
 
     // COLLISION DATA OBJECTS
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,14 +58,6 @@ public class RaceTracker : MonoBehaviour
                 _distanceTravelled += Vector3.Distance(transform.position, _lastPosition);
                 _lastPosition = transform.position;
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(_collectData)
-        {
-
         }
     }
 
@@ -119,5 +112,13 @@ public class RaceTracker : MonoBehaviour
     {
         yield return null;
     }
+
+}
+
+public class CollisionData
+{
+
+    public List<long> _times;
+    public List<Vector3> _positions;
 
 }
