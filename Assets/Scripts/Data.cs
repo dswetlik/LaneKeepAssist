@@ -13,9 +13,11 @@ public class Data
 
     Stopwatch _lapWatch;
 
-    List<long> _lapTimes;
     List<Vector3> _worldPositions;
+    List<LapData> _lapRows;
+    List<CollisionData> _collisionData;
 
+    string BASE_PATH;
 
     public Data(string trackName, int raceNum)
     {
@@ -23,7 +25,9 @@ public class Data
 
         this.raceNum = raceNum;
 
-        _lapTimes = new List<long>();
+        _lapRows = new List<LapData>();
+
+        BASE_PATH = Application.dataPath + @"\Data\" + raceNum;
     }
 
     public void StartTime()
@@ -38,51 +42,94 @@ public class Data
             _lapWatch.Stop();
     }
 
-    public void ResetTime()
+    public void RestartTime()
     {
         _lapWatch.Restart();
     }
 
-    public void RecordTime()
+    public long GetTime()
     {
-        _lapTimes.Add(_lapWatch.ElapsedMilliseconds);
-        ResetTime();
+        return _lapWatch.ElapsedMilliseconds;
+    }
+
+    public void RecordLap(long time, int collisionCount)
+    {
+        _lapRows.Add(new LapData
+        {
+            LapTime = time,
+            CollisionCount = collisionCount
+        });
+    }
+
+    public void ImportCollisionData(List<CollisionData> cd)
+    {
+        _collisionData = cd;
     }
 
     public void OutputData()
     {
 
-        string lapDataPath = Application.dataPath + @"\Data\Lap\" + trackName + @"_lap_data_" + raceNum + @".csv";
+        string lapDataPath = BASE_PATH + @"\Lap\" + trackName + @"_lap_data.csv";
+        string collisionDataPath = BASE_PATH + @"\Collisions\" + trackName + @"_clsn_data.csv";
 
         OutputLapRow(lapDataPath);
+        OutputCollisionRow(collisionDataPath);
 
     }
 
     void OutputLapRow(string path)
     {
-        List<LapRow> rows = new List<LapRow>();
-        for (int i = 0; i < _lapTimes.Count; i++)
-            rows.Add(new LapRow
-            {
-                LapTime = _lapTimes[i]
-            });
-
         using (StreamWriter writer = new StreamWriter(path))
         {
             writer.WriteLine("sep=,");
-            writer.WriteLine("LapTime");
-            foreach (LapRow row in rows)
+            writer.WriteLine("LapTime,CollisionCount");
+            foreach (LapData row in _lapRows)
             {
-                writer.WriteLine(string.Format("{0}", row.LapTime));
+                writer.WriteLine(string.Format("{0},{1}", row.LapTime, row.CollisionCount));
+            }
+        }
+    }
+
+    void OutputCollisionRow(string path)
+    {
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine("sep=,");
+            writer.WriteLine("CollisionID,time,position");
+
+            for(int i = 0; i < _collisionData.Count; i++)
+            {
+                int count = Mathf.Max(_collisionData[i]._times.Count, _collisionData[i]._positions.Count);
+                for (int j = 0; j < count; j++)
+                {
+                    string time = "", position = "";
+
+                    if(j !> _collisionData[i]._times.Count)
+                        time = _collisionData[i]._times[j].ToString();
+
+                    if(j !> _collisionData[i]._positions.Count)
+                        position = _collisionData[i]._positions[j].ToString();
+
+                    writer.WriteLine(string.Format("{0},{1},{2}",i,time,position));
+                }
             }
         }
     }
 
 }
 
-public class LapRow
+public class LapData
 {
+
     public long LapTime { get; set; }
     public int CollisionCount { get; set; }
+
+}
+
+public class CollisionData
+{
+
+    public List<long> _times;
+    public List<Vector3> _positions;
 
 }

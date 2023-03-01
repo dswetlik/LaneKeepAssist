@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
+
 
 public class RaceTracker : MonoBehaviour
 {
@@ -28,7 +30,9 @@ public class RaceTracker : MonoBehaviour
     Vector3 _lastPosition;
 
     // COLLISION DATA OBJECTS
-
+    bool _continueCollisionTracking;
+    List<CollisionData> _collisionData;
+    int _currentLapCollisionCount;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +44,9 @@ public class RaceTracker : MonoBehaviour
         _isColliding = false;
 
         _distanceTravelled = 0;
+        _collisionData = new List<CollisionData>();
+
+        _continueCollisionTracking = false;
     }
 
     void Update()
@@ -61,13 +68,36 @@ public class RaceTracker : MonoBehaviour
         }
     }
 
+    void EndLap()
+    {
+        data.RecordLap(data.GetTime(), _currentLapCollisionCount);
+        _currentLapCollisionCount = 0;
+        data.RestartTime();
+
+        _lapCount++;
+        if (_lapCount > _maxLaps)
+        {
+            data.StopTime();
+
+            data.ImportCollisionData(_collisionData);
+
+            data.OutputData();
+            finishTextObject.SetActive(true);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(_collectData)
         {
             if(other.tag.Equals("LeftTurnTrigger") || other.tag.Equals("RightTurnTrigger"))
             {
-                StartCoroutine(TrackCollision());
+                if (!_continueCollisionTracking)
+                {
+                    StartCoroutine(TrackCollision());
+                    _continueCollisionTracking = true;
+                    _currentLapCollisionCount++;
+                }
             }
         }
     }
@@ -81,6 +111,14 @@ public class RaceTracker : MonoBehaviour
 
         if (_collectData)
         {
+            if (other.tag.Equals("LeftTurnTrigger") || other.tag.Equals("RightTurnTrigger"))
+            {
+                if (_continueCollisionTracking)
+                {
+                    _continueCollisionTracking = false;
+                }
+            }
+
             if (other.tag.Equals("Checkpoint"))
             {
                 if (other.name.Equals("Start"))
@@ -92,33 +130,29 @@ public class RaceTracker : MonoBehaviour
                     }
                     else
                     {
-                        data.RecordTime();
-                        _lapCount++;
-                        if (_lapCount > _maxLaps)
-                        {
-                            data.StopTime();
-                            data.OutputData();
-                            finishTextObject.SetActive(true);
-                        }
+                        EndLap();
                     }
                 }
             }
-
             _isColliding = false;
         }
     }
 
     IEnumerator TrackCollision()
     {
-        yield return null;
+
+        CollisionData cd = new CollisionData();
+
+        while (_continueCollisionTracking)
+        {
+            cd._times.Add(data.GetTime());
+            cd._positions.Add(transform.position);
+
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+
+        _collisionData.Add(cd);
+
     }
-
-}
-
-public class CollisionData
-{
-
-    public List<long> _times;
-    public List<Vector3> _positions;
 
 }
