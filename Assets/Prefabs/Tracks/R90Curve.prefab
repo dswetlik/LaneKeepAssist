@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9185011832128248226}
   - component: {fileID: 2163561625443887250}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Track_ArrowRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ Transform:
   - {fileID: 7384558415469631723}
   - {fileID: 5230513827949540841}
   m_Father: {fileID: 8107671134224847135}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!1 &812786500304577407
 GameObject:
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 33751625059386929}
   - component: {fileID: 8541565338762816996}
   m_Layer: 0
-  m_Name: L-Second
+  m_Name: Track_Left60
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,103 +228,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1789953637877728858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3126062237995352663}
-  - component: {fileID: 6342609621798181012}
-  - component: {fileID: 797266634762646920}
-  - component: {fileID: 5725219034913006818}
-  m_Layer: 0
-  m_Name: L-Block
-  m_TagString: RightTurnTrigger
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3126062237995352663
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789953637877728858}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: -2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8107671134224847135}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6342609621798181012
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789953637877728858}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &797266634762646920
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789953637877728858}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5725219034913006818
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789953637877728858}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2103323788645547022
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +241,7 @@ GameObject:
   - component: {fileID: 5418645406479472213}
   - component: {fileID: 7669328530909902245}
   m_Layer: 0
-  m_Name: L-First
+  m_Name: Track_Left75
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +358,6 @@ Transform:
   - {fileID: 5039802078473383982}
   - {fileID: 5828469678849126382}
   - {fileID: 6189100569206605927}
-  - {fileID: 3126062237995352663}
   - {fileID: 4870023094803674797}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -473,7 +375,7 @@ GameObject:
   - component: {fileID: 2488181704763322280}
   - component: {fileID: 2957851448637699664}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Track_ArrowLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +472,7 @@ GameObject:
   - component: {fileID: 1268772851647167282}
   - component: {fileID: 2208291650377154366}
   m_Layer: 0
-  m_Name: L-Third
+  m_Name: Track_Left45
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,7 +569,7 @@ GameObject:
   - component: {fileID: 3452735794256218115}
   - component: {fileID: 8939825713128740399}
   m_Layer: 0
-  m_Name: L-Fifth
+  m_Name: Track_Left15
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +666,7 @@ GameObject:
   - component: {fileID: 2743011862701552875}
   - component: {fileID: 8346769570590247116}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Track_ArrowTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -861,7 +763,7 @@ GameObject:
   - component: {fileID: 4721395399942587224}
   - component: {fileID: 3460999319020559250}
   m_Layer: 0
-  m_Name: L-Fourth
+  m_Name: Track_Left30
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

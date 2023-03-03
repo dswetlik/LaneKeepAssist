@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8790663252347599143}
   - component: {fileID: 5860623708879735456}
   m_Layer: 0
-  m_Name: S-Right
+  m_Name: Track_Left
   m_TagString: RightTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7873189998724633766}
   - component: {fileID: 1732178195812235480}
   m_Layer: 0
-  m_Name: S-Left
+  m_Name: Track_Right
   m_TagString: LeftTurnTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 6409739798565659770}
   - component: {fileID: 2247899297036617941}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Track_ArrowRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 2045453165599523059}
   - component: {fileID: 3944606129582360653}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Track_ArrowLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 1142235263846743725}
   - component: {fileID: 6500031467047469625}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Track_ArrowTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
