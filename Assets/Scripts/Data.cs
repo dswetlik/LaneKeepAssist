@@ -104,10 +104,10 @@ public class Data
                 {
                     string time = "", position = "";
 
-                    if(j !> _collisionData[i]._times.Count)
+                    if(!(j > _collisionData[i]._times.Count))
                         time = _collisionData[i]._times[j].ToString();
 
-                    if(j !> _collisionData[i]._positions.Count)
+                    if(!(j > _collisionData[i]._positions.Count))
                         position = _collisionData[i]._positions[j].ToString();
 
                     writer.WriteLine(string.Format("{0},{1},{2}",i,time,position));
