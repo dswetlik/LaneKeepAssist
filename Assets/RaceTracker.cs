@@ -25,8 +25,8 @@ public class RaceTracker : MonoBehaviour
   
     public GameObject finishTextObject;
 
-    // DISTANCE DATA OBJECTS
-    float _distanceTravelled;
+    // RACE DATA OBJECTS
+    RaceData _rd;
     Vector3 _lastPosition;
 
     // COLLISION DATA OBJECTS
@@ -43,28 +43,24 @@ public class RaceTracker : MonoBehaviour
         }
         _isColliding = false;
 
-        _distanceTravelled = 0;
+        _rd = new RaceData();
         _collisionData = new List<CollisionData>();
 
         _continueCollisionTracking = false;
-    }
-
-    void Update()
-    {
-
+        _lastPosition = transform.position;
     }
 
     void FixedUpdate()
     {
-        if (_raceOngoing)
+        if (_collectData)
         {
-            if (_lastPosition == null)
-                _lastPosition = transform.position;
-            else
-            {
-                _distanceTravelled += Vector3.Distance(transform.position, _lastPosition);
-                _lastPosition = transform.position;
-            }
+
+            _rd._timeStamps.Add(data.GetTime());
+            _rd._positions.Add(transform.position);
+            _rd._distances.Add(Vector3.Distance(transform.position, _lastPosition));
+                               
+            _lastPosition = transform.position;
+
         }
     }
 
