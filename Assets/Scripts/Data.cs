@@ -16,6 +16,7 @@ public class Data
     List<Vector3> _worldPositions;
     List<LapData> _lapRows;
     List<CollisionData> _collisionData;
+    RaceData _raceData;
 
     string BASE_PATH;
 
@@ -64,6 +65,11 @@ public class Data
     public void ImportCollisionData(List<CollisionData> cd)
     {
         _collisionData = cd;
+    }
+
+    public void ImportRaceData(RaceData rd)
+    {
+
     }
 
     public void OutputData()
