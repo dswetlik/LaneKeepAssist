@@ -76,7 +76,8 @@ public class Data
     {
 
         string lapDataPath = BASE_PATH + @"\Lap\" + trackName + @"_lap_data.csv";
-        string collisionDataPath = BASE_PATH + @"\Collisions\" + trackName + @"_clsn_data.csv";
+        string collisionDataPath = BASE_PATH + @"\Collision\" + trackName + @"_clsn_data.csv";
+        string raceDataPath = BASE_PATH + @"\Race\" + trackName + @"_race_data.csv";
 
         OutputLapRow(lapDataPath);
         OutputCollisionRow(collisionDataPath);
@@ -118,6 +119,32 @@ public class Data
 
                     writer.WriteLine(string.Format("{0},{1},{2}",i,time,position));
                 }
+            }
+        }
+    }
+
+    void OutputRaceRow(string path)
+    {
+        using(StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine("sep=,");
+            writer.WriteLine("TimeStamp,Position,DistanceFromLast");
+
+            int count = Mathf.Max(_raceData._timeStamps.Count, _raceData._positions.Count, _raceData._distances.Count);
+            for(int i = 0; i < count; i++)
+            {
+                string time = "", position = "", distance = "";
+
+                if (!(i > _raceData._timeStamps.Count))
+                    time = _raceData._timeStamps[i].ToString();
+                
+                if (!(i > _raceData._positions.Count))
+                    position = _raceData._positions[i].ToString();                
+                
+                if (!(i > _raceData._distances.Count))
+                    distance = _raceData._distances[i].ToString();
+
+                writer.WriteLine(string.Format("{0},{1},{2}",time,position,distance));
             }
         }
     }
