@@ -137,6 +137,7 @@ public class RaceData
 
     public List<long> _timeStamps;
     public List<Vector3> _positions;
+    public List<float> _distances;
 
 }
 
