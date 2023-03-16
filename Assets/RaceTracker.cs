@@ -44,6 +44,11 @@ public class RaceTracker : MonoBehaviour
         _isColliding = false;
 
         _rd = new RaceData();
+
+        _rd._timeStamps = new List<long>();
+        _rd._positions = new List<Vector3>();
+        _rd._distances = new List<float>();
+
         _collisionData = new List<CollisionData>();
 
         _continueCollisionTracking = false;
@@ -139,6 +144,9 @@ public class RaceTracker : MonoBehaviour
     {
 
         CollisionData cd = new CollisionData();
+
+        cd._times = new List<long>();
+        cd._positions = new List<Vector3>();
 
         while (_continueCollisionTracking)
         {

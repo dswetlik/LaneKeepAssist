@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8349,9 +8349,9 @@ MonoBehaviour:
   _trackScene:
     m_Handle: 0
   _raceNumber: 0
-  _maxLaps: 3
+  _maxLaps: 2
   _lapCount: 0
-  _collectData: 0
+  _collectData: 1
   finishTextObject: {fileID: 2049315674}
 --- !u!114 &2076195572
 MonoBehaviour:
@@ -8425,7 +8425,7 @@ MonoBehaviour:
     applyPositionZ: 1
     applyPosition2D: 1
     retainLocalPosition: 0
-    direction: 1
+    direction: -1
     applyRotationX: 1
     applyRotationY: 1
     applyRotationZ: 1
@@ -8446,12 +8446,12 @@ MonoBehaviour:
     size: 1
     percent: 0.9130342400000016
   _finalResult:
-    position: {x: 36.743336, y: -0.0020031263, z: 39.850273}
+    position: {x: 38.082275, y: -0.014184166, z: 39.17571}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.9987783, y: 0.006138101, z: 0.049033284}
+    forward: {x: -0.99987876, y: -0.004225528, z: 0.014987473}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.9212044800000013
+    percent: 0.9130342400000016
   _mode: 0
   _autoProject: 1
   _subdivide: 4
