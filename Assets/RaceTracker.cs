@@ -20,8 +20,6 @@ public class RaceTracker : MonoBehaviour
     [SerializeField] int _lapCount;
 
     [SerializeField] bool _collectData;
-
-
   
     public GameObject finishTextObject;
 
@@ -37,6 +35,8 @@ public class RaceTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _trackScene = SceneManager.GetActiveScene();
+
         if (_collectData)
         {
             data = new Data(_trackScene.name, _raceNumber);
@@ -44,6 +44,11 @@ public class RaceTracker : MonoBehaviour
         _isColliding = false;
 
         _rd = new RaceData();
+
+        _rd._timeStamps = new List<long>();
+        _rd._positions = new List<Vector3>();
+        _rd._distances = new List<float>();
+
         _collisionData = new List<CollisionData>();
 
         _continueCollisionTracking = false;
@@ -76,6 +81,7 @@ public class RaceTracker : MonoBehaviour
             data.StopTime();
 
             data.ImportCollisionData(_collisionData);
+            data.ImportRaceData(_rd);
 
             data.OutputData();
             finishTextObject.SetActive(true);
@@ -138,6 +144,9 @@ public class RaceTracker : MonoBehaviour
     {
 
         CollisionData cd = new CollisionData();
+
+        cd._times = new List<long>();
+        cd._positions = new List<Vector3>();
 
         while (_continueCollisionTracking)
         {

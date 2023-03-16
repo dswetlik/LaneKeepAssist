@@ -28,7 +28,7 @@ public class Data
 
         _lapRows = new List<LapData>();
 
-        BASE_PATH = Application.dataPath + @"\Data\" + raceNum;
+        BASE_PATH = Application.dataPath + @"\Data\" + raceNum + "_" + trackName;
     }
 
     public void StartTime()
@@ -69,23 +69,25 @@ public class Data
 
     public void ImportRaceData(RaceData rd)
     {
-
+        _raceData = rd;
     }
 
     public void OutputData()
     {
 
-        string lapDataPath = BASE_PATH + @"\Lap\" + trackName + @"_lap_data.csv";
-        string collisionDataPath = BASE_PATH + @"\Collisions\" + trackName + @"_clsn_data.csv";
+        string lapDataPath = BASE_PATH + @"_lap_data.csv";
+        string collisionDataPath = BASE_PATH + @"_clsn_data.csv";
+        string raceDataPath = BASE_PATH + @"_race_data.csv";
 
         OutputLapRow(lapDataPath);
         OutputCollisionRow(collisionDataPath);
+        OutputRaceRow(raceDataPath);
 
     }
 
     void OutputLapRow(string path)
     {
-        using (StreamWriter writer = new StreamWriter(path))
+        using (StreamWriter writer = File.AppendText(path))
         {
             writer.WriteLine("sep=,");
             writer.WriteLine("LapTime,CollisionCount");
@@ -98,7 +100,7 @@ public class Data
 
     void OutputCollisionRow(string path)
     {
-        using (StreamWriter writer = new StreamWriter(path))
+        using (StreamWriter writer = File.AppendText(path))
         {
             writer.WriteLine("sep=,");
             writer.WriteLine("CollisionID,time,position");
@@ -118,6 +120,32 @@ public class Data
 
                     writer.WriteLine(string.Format("{0},{1},{2}",i,time,position));
                 }
+            }
+        }
+    }
+
+    void OutputRaceRow(string path)
+    {
+        using(StreamWriter writer = File.AppendText(path))
+        {
+            writer.WriteLine("sep=,");
+            writer.WriteLine("TimeStamp,Position,DistanceFromLast");
+
+            int count = Mathf.Max(_raceData._timeStamps.Count, _raceData._positions.Count, _raceData._distances.Count);
+            for(int i = 0; i < count; i++)
+            {
+                string time = "", position = "", distance = "";
+
+                if (!(i > _raceData._timeStamps.Count))
+                    time = _raceData._timeStamps[i].ToString();
+                
+                if (!(i > _raceData._positions.Count))
+                    position = _raceData._positions[i].ToString();                
+                
+                if (!(i > _raceData._distances.Count))
+                    distance = _raceData._distances[i].ToString();
+
+                writer.WriteLine(string.Format("{0},{1},{2}",time,position,distance));
             }
         }
     }
