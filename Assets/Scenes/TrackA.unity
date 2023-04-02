@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8348,8 +8348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxThrottle: 10
-  SmoothMovement: 5
-  SmoothTurning: 60
+  SmoothMovement: 10
+  SmoothTurning: 75
 --- !u!114 &2076195570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8364,7 +8364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shouldTurnLeft: 0
   _shouldTurnRight: 0
-  _lka: 1
+  _lka: 0
   _ldw: 0
 --- !u!114 &2076195571
 MonoBehaviour:
@@ -8381,7 +8381,8 @@ MonoBehaviour:
   _trackScene:
     m_Handle: 0
   _raceNumber: 0
-  _maxLaps: 1
+  _isTrainingRace: 1
+  _maxLaps: 4
   _lapCount: 0
   _collectData: 1
   finishTextObject: {fileID: 2049315674}

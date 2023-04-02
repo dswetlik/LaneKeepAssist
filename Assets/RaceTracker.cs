@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Diagnostics;
-
+using Dreamteck.Splines;
 
 public class RaceTracker : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class RaceTracker : MonoBehaviour
 
     [SerializeField] Scene _trackScene;
     [SerializeField] int _raceNumber;
+    [SerializeField] bool _isTrainingRace;
 
     [SerializeField] int _maxLaps;
     [SerializeField] int _lapCount;
@@ -22,6 +23,8 @@ public class RaceTracker : MonoBehaviour
     [SerializeField] bool _collectData;
   
     public GameObject finishTextObject;
+
+    SplineProjector _sp;
 
     // RACE DATA OBJECTS
     RaceData _rd;
@@ -35,15 +38,19 @@ public class RaceTracker : MonoBehaviour
 
     // LAP DATA OBJECT
     List<LapData> _lapData;
+    float distanceTravelled;
+    int degCount;
+    float totalDeg;
 
     // Start is called before the first frame update
     void Start()
     {
         _trackScene = SceneManager.GetActiveScene();
+        _sp = GetComponent<SplineProjector>();
 
         if (_collectData)
         {
-            data = new Data(_trackScene.name, _raceNumber);
+            data = new Data(_trackScene.name, _raceNumber, _isTrainingRace);
 
             _isColliding = false;
 
@@ -66,6 +73,10 @@ public class RaceTracker : MonoBehaviour
             _currentLapCollisionCount = 0;
             _totalBorderTriggerCount = 0;
 
+
+            distanceTravelled = 0;
+            degCount = 0;
+            totalDeg = 0;
             _lapData = new List<LapData>();
         }
     }
@@ -78,12 +89,19 @@ public class RaceTracker : MonoBehaviour
             {
                 Vector3 pos = transform.position;
                 long time = data.GetTime();
+                float dis = Vector3.Distance(pos, _lastPosition);
 
                 _rd._timeStamps.Add(time);
                 _rd._positions.Add(pos);
-                _rd._distances.Add(Vector3.Distance(pos, _lastPosition));
+                _rd._distances.Add(dis);
+
                 _rd._rtPull.Add(ControllerManager.DualSense.rightTrigger.ReadValue());
                 _rd._ltPull.Add(ControllerManager.DualSense.leftTrigger.ReadValue());
+
+                distanceTravelled += dis;
+                Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.05) % 1.0);
+                totalDeg += Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
+                degCount++;
 
                 if(_inBorderTrigger)
                 {
@@ -100,7 +118,11 @@ public class RaceTracker : MonoBehaviour
     void EndLap()
     {
 
-        _lapData.Add(new LapData(data.GetTime(), _currentLapCollisionCount));
+        _lapData.Add(new LapData(data.GetTime(), _currentLapCollisionCount, distanceTravelled, totalDeg / degCount));
+
+        distanceTravelled = 0;
+        degCount = 0;
+        totalDeg = 0;
 
         _currentLapCollisionCount = 0;
         data.RestartTime();

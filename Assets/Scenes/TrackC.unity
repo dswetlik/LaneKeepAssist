@@ -845,23 +845,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.91551447
+      value: -0.9156625
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.008128088
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.40186635
+      value: 0.40194792
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.016454257
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.095
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -869,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545366860, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 2.101
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1693342514545462124, guid: 4923eb067f5c5644595ffc7fee6ceb1d, type: 3}
       propertyPath: m_Name
@@ -8316,8 +8316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxThrottle: 10
-  SmoothMovement: 5
-  SmoothTurning: 60
+  SmoothMovement: 10
+  SmoothTurning: 75
 --- !u!114 &2076195570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8332,7 +8332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shouldTurnLeft: 0
   _shouldTurnRight: 0
-  _lka: 1
+  _lka: 0
   _ldw: 0
 --- !u!114 &2076195571
 MonoBehaviour:
@@ -8349,7 +8349,8 @@ MonoBehaviour:
   _trackScene:
     m_Handle: 0
   _raceNumber: 0
-  _maxLaps: 2
+  _isTrainingRace: 1
+  _maxLaps: 4
   _lapCount: 0
   _collectData: 1
   finishTextObject: {fileID: 2049315674}

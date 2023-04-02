@@ -20,7 +20,7 @@ public class Data
 
     string BASE_PATH;
 
-    public Data(string trackName, int raceNum)
+    public Data(string trackName, int raceNum, bool training)
     {
         _lapWatch = new Stopwatch();
 
@@ -28,7 +28,10 @@ public class Data
 
         _lapRows = new List<LapData>();
 
-        BASE_PATH = Application.dataPath + @"\Data\" + raceNum + "_" + trackName;
+        if(training)
+            BASE_PATH = Application.dataPath + @"\Data\" + raceNum + "_" + trackName + "_Training";
+        else
+            BASE_PATH = Application.dataPath + @"\Data\" + raceNum + "_" + trackName;
     }
 
     public void StartTime()
@@ -170,10 +173,12 @@ public class LapData
     public float DistanceTravelled { get; set; }
     public float AverageDegreesOff { get; set; }
 
-    public LapData(long lt, int cc)
+    public LapData(long lt, int cc, float dt, float ado)
     {
         LapTime = lt;
         CollisionCount = cc;
+        DistanceTravelled = dt;
+        AverageDegreesOff = ado;
     }
 
 }
