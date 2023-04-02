@@ -15,7 +15,7 @@ public class Data
 
     List<Vector3> _worldPositions;
     List<LapData> _lapRows;
-    List<CollisionData> _collisionData;
+    CollisionData _collisionData;
     RaceData _raceData;
 
     string BASE_PATH;
@@ -53,18 +53,12 @@ public class Data
         return _lapWatch.ElapsedMilliseconds;
     }
 
-    public void RecordLap(long time, int collisionCount, float distanceTravelled, float averageDegreesOff)
+    public void ImportLapData(List<LapData> ld)
     {
-        _lapRows.Add(new LapData
-        {
-            LapTime = time,
-            CollisionCount = collisionCount,
-            DistanceTravelled = distanceTravelled,
-            AverageDegreesOff = averageDegreesOff
-        });
+        _lapRows = ld;
     }
 
-    public void ImportCollisionData(List<CollisionData> cd)
+    public void ImportCollisionData(CollisionData cd)
     {
         _collisionData = cd;
     }
@@ -92,10 +86,10 @@ public class Data
         using (StreamWriter writer = File.AppendText(path))
         {
             writer.WriteLine("sep=,");
-            writer.WriteLine("LapTime,CollisionCount,DistanceTravelled,AverageDegreesOff");
+            writer.WriteLine("LapTime,CollisionCount");
             foreach (LapData row in _lapRows)
             {
-                writer.WriteLine(string.Format("{0},{1},{2},{3}", row.LapTime, row.CollisionCount, row.DistanceTravelled,row.AverageDegreesOff));
+                writer.WriteLine(string.Format("{0},{1}", row.LapTime, row.CollisionCount));
             }
         }
     }
@@ -107,22 +101,26 @@ public class Data
             writer.WriteLine("sep=,");
             writer.WriteLine("CollisionID,time,position");
 
-            for(int i = 0; i < _collisionData.Count; i++)
+            int count = Mathf.Max(_collisionData._times.Count, _collisionData._positions.Count);
+            for (int i = 0; i < count; i++)
             {
-                int count = Mathf.Max(_collisionData[i]._times.Count, _collisionData[i]._positions.Count);
-                for (int j = 0; j < count; j++)
+                string collisionId = "", time = "", xposition = "", zposition = "";
+
+                if (!(i > _collisionData._collisionId.Count))
+                    collisionId = _collisionData._collisionId[i].ToString();
+
+                if (!(i > _collisionData._times.Count))
+                    time = _collisionData._times[i].ToString();
+
+                if (!(i > _collisionData._positions.Count))
                 {
-                    string time = "", position = "";
-
-                    if(!(j > _collisionData[i]._times.Count))
-                        time = _collisionData[i]._times[j].ToString();
-
-                    if(!(j > _collisionData[i]._positions.Count))
-                        position = _collisionData[i]._positions[j].ToString();
-
-                    writer.WriteLine(string.Format("{0},{1},{2}",i,time,position));
+                    xposition = _collisionData._positions[i].x.ToString();
+                    zposition = _collisionData._positions[i].z.ToString();
                 }
+
+                writer.WriteLine(string.Format("{0},{1},{2},{3}", collisionId, time, xposition,zposition));
             }
+
         }
     }
 
@@ -131,23 +129,33 @@ public class Data
         using(StreamWriter writer = File.AppendText(path))
         {
             writer.WriteLine("sep=,");
-            writer.WriteLine("TimeStamp,Position,DistanceFromLast");
+            writer.WriteLine("TimeStamp,xPosition,zPosition,DistanceFromLast,rtTriggerPull,ltTriggerPull");
 
             int count = Mathf.Max(_raceData._timeStamps.Count, _raceData._positions.Count, _raceData._distances.Count);
             for(int i = 0; i < count; i++)
             {
-                string time = "", position = "", distance = "";
+                string time = "", xposition = "", zposition = "", distance = "", rtPull = "", ltPull = "";
 
                 if (!(i > _raceData._timeStamps.Count))
                     time = _raceData._timeStamps[i].ToString();
-                
+
                 if (!(i > _raceData._positions.Count))
-                    position = _raceData._positions[i].ToString();                
-                
+                {
+                    xposition = _raceData._positions[i].x.ToString();
+                    zposition = _raceData._positions[i].z.ToString();
+                }
+
                 if (!(i > _raceData._distances.Count))
                     distance = _raceData._distances[i].ToString();
 
-                writer.WriteLine(string.Format("{0},{1},{2}",time,position,distance));
+                if (!(i > _raceData._rtPull.Count))
+                    rtPull = _raceData._rtPull[i].ToString();
+
+                if (!(i > _raceData._ltPull.Count))
+                    ltPull = _raceData._ltPull[i].ToString();
+
+
+                writer.WriteLine(string.Format("{0},{1},{2},{3},{4},{5}",time,xposition,zposition,distance,rtPull,ltPull));
             }
         }
     }
@@ -159,8 +167,12 @@ public class LapData
 
     public long LapTime { get; set; }
     public int CollisionCount { get; set; }
-    public float DistanceTravelled { get; set; }
-    public float AverageDegreesOff { get; set; }
+
+    public LapData(long lt, int cc)
+    {
+        LapTime = lt;
+        CollisionCount = cc;
+    }
 
 }
 
@@ -170,12 +182,15 @@ public class RaceData
     public List<long> _timeStamps;
     public List<Vector3> _positions;
     public List<float> _distances;
+    public List<float> _rtPull;
+    public List<float> _ltPull;
 
 }
 
 public class CollisionData
 {
 
+    public List<int> _collisionId;
     public List<long> _times;
     public List<Vector3> _positions;
 

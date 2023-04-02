@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Diagnostics;
-using Dreamteck.Splines;
+
 
 public class RaceTracker : MonoBehaviour
 {
@@ -23,96 +23,106 @@ public class RaceTracker : MonoBehaviour
   
     public GameObject finishTextObject;
 
-    SplineProjector _sp;
-
-    // LAP DATA OBJECTS
-    float distanceTravelled;
-    int degCount;
-    float totalDegOff;
-
     // RACE DATA OBJECTS
     RaceData _rd;
     Vector3 _lastPosition;
 
     // COLLISION DATA OBJECTS
-    bool _continueCollisionTracking;
-    List<CollisionData> _collisionData;
+    bool _inBorderTrigger;
+    CollisionData _cd;
     int _currentLapCollisionCount;
+    int _totalBorderTriggerCount;
+
+    // LAP DATA OBJECT
+    List<LapData> _lapData;
 
     // Start is called before the first frame update
     void Start()
     {
-        _sp = GetComponent<SplineProjector>();
         _trackScene = SceneManager.GetActiveScene();
-
-        distanceTravelled = 0;
-        degCount = 0;
-        totalDegOff = 0;
 
         if (_collectData)
         {
             data = new Data(_trackScene.name, _raceNumber);
+
+            _isColliding = false;
+
+            _rd = new RaceData();
+
+            _rd._timeStamps = new List<long>();
+            _rd._positions = new List<Vector3>();
+            _rd._distances = new List<float>();
+            _rd._rtPull = new List<float>();
+            _rd._ltPull = new List<float>();
+
+            _cd = new CollisionData();
+
+            _cd._collisionId = new List<int>();
+            _cd._positions = new List<Vector3>();
+            _cd._times = new List<long>();
+
+            _inBorderTrigger = false;
+            _lastPosition = transform.position;
+            _currentLapCollisionCount = 0;
+            _totalBorderTriggerCount = 0;
+
+            _lapData = new List<LapData>();
         }
-        _isColliding = false;
-
-        _rd = new RaceData();
-
-        _rd._timeStamps = new List<long>();
-        _rd._positions = new List<Vector3>();
-        _rd._distances = new List<float>();
-
-        _collisionData = new List<CollisionData>();
-
-        _continueCollisionTracking = false;
-        _lastPosition = transform.position;
     }
 
     void FixedUpdate()
     {
         if (_collectData)
         {
+            if (_raceOngoing)
+            {
+                Vector3 pos = transform.position;
+                long time = data.GetTime();
 
-            float dis = Vector3.Distance(transform.position, _lastPosition);
+                _rd._timeStamps.Add(time);
+                _rd._positions.Add(pos);
+                _rd._distances.Add(Vector3.Distance(pos, _lastPosition));
+                _rd._rtPull.Add(ControllerManager.DualSense.rightTrigger.ReadValue());
+                _rd._ltPull.Add(ControllerManager.DualSense.leftTrigger.ReadValue());
 
-            Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.05) % 1.0);
-            float ang = Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
+                if(_inBorderTrigger)
+                {
+                    _cd._collisionId.Add(_totalBorderTriggerCount);
+                    _cd._times.Add(time);
+                    _cd._positions.Add(pos);
+                }
 
-            _rd._timeStamps.Add(data.GetTime());
-            _rd._positions.Add(transform.position);
-            _rd._distances.Add(dis);
-            distanceTravelled += dis;
-
-            totalDegOff += ang;
-            degCount++;
-
-            _lastPosition = transform.position;
-
-
+                _lastPosition = transform.position;
+            }
         }
     }
 
     void EndLap()
     {
-        data.RecordLap(data.GetTime(), _currentLapCollisionCount, distanceTravelled, totalDegOff / degCount);
-        
-        distanceTravelled = 0;
-        totalDegOff = 0;
-        degCount = 0;
+
+        _lapData.Add(new LapData(data.GetTime(), _currentLapCollisionCount));
 
         _currentLapCollisionCount = 0;
         data.RestartTime();
 
         _lapCount++;
+
         if (_lapCount > _maxLaps)
         {
+
             data.StopTime();
 
-            data.ImportCollisionData(_collisionData);
+            _raceOngoing = false;
+            finishTextObject.SetActive(true);
+
+            data.ImportLapData(_lapData);
+            data.ImportCollisionData(_cd);
             data.ImportRaceData(_rd);
 
             data.OutputData();
-            finishTextObject.SetActive(true);
+
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -121,11 +131,11 @@ public class RaceTracker : MonoBehaviour
         {
             if(other.tag.Equals("LeftTurnTrigger") || other.tag.Equals("RightTurnTrigger"))
             {
-                if (!_continueCollisionTracking)
+                if (!_inBorderTrigger)
                 {
-                    StartCoroutine(TrackCollision());
-                    _continueCollisionTracking = true;
+                    _inBorderTrigger = true;
                     _currentLapCollisionCount++;
+                    _totalBorderTriggerCount++;
                 }
             }
         }
@@ -142,9 +152,9 @@ public class RaceTracker : MonoBehaviour
         {
             if (other.tag.Equals("LeftTurnTrigger") || other.tag.Equals("RightTurnTrigger"))
             {
-                if (_continueCollisionTracking)
+                if (_inBorderTrigger)
                 {
-                    _continueCollisionTracking = false;
+                    _inBorderTrigger = false;
                 }
             }
 
@@ -166,25 +176,4 @@ public class RaceTracker : MonoBehaviour
             _isColliding = false;
         }
     }
-
-    IEnumerator TrackCollision()
-    {
-
-        CollisionData cd = new CollisionData();
-
-        cd._times = new List<long>();
-        cd._positions = new List<Vector3>();
-
-        while (_continueCollisionTracking)
-        {
-            cd._times.Add(data.GetTime());
-            cd._positions.Add(transform.position);
-
-            yield return new WaitForSecondsRealtime(0.1f);
-        }
-
-        _collisionData.Add(cd);
-
-    }
-
 }

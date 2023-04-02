@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8471,19 +8471,19 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 0}
   _result:
-    position: {x: 29.633814, y: -0.36094117, z: 39.85354}
+    position: {x: 27.178062, y: -0.69251007, z: 39.880543}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.9889523, y: 0.14779085, z: -0.011456654}
+    forward: {x: 0.99525106, y: 0.09687332, z: -0.00953339}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.9823116800000016
+    percent: 0.9649433600000018
   _finalResult:
-    position: {x: 29.633814, y: -0.36094117, z: 39.85354}
+    position: {x: 27.178062, y: -0.69251007, z: 39.880543}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.9889523, y: 0.14779085, z: -0.011456654}
+    forward: {x: 0.99525106, y: 0.09687332, z: -0.00953339}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.9823116800000016
+    percent: 0.9649433600000018
   _mode: 0
   _autoProject: 1
   _subdivide: 4
@@ -8492,7 +8492,7 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: 29.58, y: 0, z: 39.86}
+  lastPosition: {x: 27.11, y: 0, z: 39.86}
 --- !u!4 &2076195573
 Transform:
   m_ObjectHideFlags: 0
@@ -8501,7 +8501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076195566}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 29.57, y: 0, z: 39.33}
+  m_LocalPosition: {x: 27.1, y: 0, z: 39.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
