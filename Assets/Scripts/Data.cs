@@ -86,10 +86,10 @@ public class Data
         using (StreamWriter writer = File.AppendText(path))
         {
             writer.WriteLine("sep=,");
-            writer.WriteLine("LapTime,CollisionCount");
+            writer.WriteLine("LapTime,CollisionCount,DistanceTravelled,AverageDegreesOff");
             foreach (LapData row in _lapRows)
             {
-                writer.WriteLine(string.Format("{0},{1}", row.LapTime, row.CollisionCount));
+                writer.WriteLine(string.Format("{0},{1},{2},{3}", row.LapTime, row.CollisionCount, row.DistanceTravelled,row.AverageDegreesOff));
             }
         }
     }
@@ -167,6 +167,8 @@ public class LapData
 
     public long LapTime { get; set; }
     public int CollisionCount { get; set; }
+    public float DistanceTravelled { get; set; }
+    public float AverageDegreesOff { get; set; }
 
     public LapData(long lt, int cc)
     {
