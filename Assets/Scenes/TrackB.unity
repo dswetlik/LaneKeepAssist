@@ -7198,8 +7198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxThrottle: 10
-  SmoothMovement: 5
-  SmoothTurning: 60
+  SmoothMovement: 10
+  SmoothTurning: 75
 --- !u!114 &2076195570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7307,7 +7307,7 @@ MonoBehaviour:
     applyPositionZ: 1
     applyPosition2D: 1
     retainLocalPosition: 0
-    direction: 1
+    direction: -1
     applyRotationX: 1
     applyRotationY: 1
     applyRotationZ: 1
@@ -7321,19 +7321,19 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 0}
   _result:
-    position: {x: 62.93873, y: 0, z: 29.202559}
+    position: {x: 55.607468, y: 0, z: 29.454248}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.9982144, y: 0, z: -0.059733193}
+    forward: {x: 0.9999373, y: 0, z: 0.011201236}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.026077439999999983
+    percent: 0.9780646400000014
   _finalResult:
-    position: {x: 62.93873, y: 0, z: 29.202559}
+    position: {x: 55.607468, y: 0, z: 29.454248}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.9982144, y: 0, z: -0.059733193}
+    forward: {x: 0.9999373, y: 0, z: 0.011201236}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.026077439999999983
+    percent: 0.9780646400000014
   _mode: 0
   _autoProject: 1
   _subdivide: 4
@@ -7342,7 +7342,7 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: 62.99, y: 0, z: 30.079}
+  lastPosition: {x: 55.6, y: 0, z: 30.1}
 --- !u!4 &2076195573
 Transform:
   m_ObjectHideFlags: 0
@@ -7350,15 +7350,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076195566}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 62.99, y: 0, z: 30.079}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 55.6, y: 0, z: 30.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1333427117}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &2104648050
 PrefabInstance:
   m_ObjectHideFlags: 0

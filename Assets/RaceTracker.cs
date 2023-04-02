@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Diagnostics;
-
+using Dreamteck.Splines;
 
 public class RaceTracker : MonoBehaviour
 {
@@ -23,6 +23,13 @@ public class RaceTracker : MonoBehaviour
   
     public GameObject finishTextObject;
 
+    SplineProjector _sp;
+
+    // LAP DATA OBJECTS
+    float distanceTravelled;
+    int degCount;
+    float totalDegOff;
+
     // RACE DATA OBJECTS
     RaceData _rd;
     Vector3 _lastPosition;
@@ -35,7 +42,12 @@ public class RaceTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _sp = GetComponent<SplineProjector>();
         _trackScene = SceneManager.GetActiveScene();
+
+        distanceTravelled = 0;
+        degCount = 0;
+        totalDegOff = 0;
 
         if (_collectData)
         {
@@ -60,18 +72,33 @@ public class RaceTracker : MonoBehaviour
         if (_collectData)
         {
 
+            float dis = Vector3.Distance(transform.position, _lastPosition);
+
+            Vector3 toNav = _sp.EvaluatePosition((_sp.GetPercent() + 0.05) % 1.0);
+            float ang = Vector3.SignedAngle(transform.forward, toNav - transform.position, Vector3.up);
+
             _rd._timeStamps.Add(data.GetTime());
             _rd._positions.Add(transform.position);
-            _rd._distances.Add(Vector3.Distance(transform.position, _lastPosition));
-                               
+            _rd._distances.Add(dis);
+            distanceTravelled += dis;
+
+            totalDegOff += ang;
+            degCount++;
+
             _lastPosition = transform.position;
+
 
         }
     }
 
     void EndLap()
     {
-        data.RecordLap(data.GetTime(), _currentLapCollisionCount);
+        data.RecordLap(data.GetTime(), _currentLapCollisionCount, distanceTravelled, totalDegOff / degCount);
+        
+        distanceTravelled = 0;
+        totalDegOff = 0;
+        degCount = 0;
+
         _currentLapCollisionCount = 0;
         data.RestartTime();
 
