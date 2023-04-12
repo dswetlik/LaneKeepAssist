@@ -88,7 +88,7 @@ public class Data
     {
         using (StreamWriter writer = File.AppendText(path))
         {
-            writer.WriteLine("sep=,");
+            //writer.WriteLine("sep=,");
             writer.WriteLine("LapTime,CollisionCount,DistanceTravelled,AverageDegreesOff");
             foreach (LapData row in _lapRows)
             {
@@ -101,8 +101,8 @@ public class Data
     {
         using (StreamWriter writer = File.AppendText(path))
         {
-            writer.WriteLine("sep=,");
-            writer.WriteLine("CollisionID,time,position");
+            //writer.WriteLine("sep=,");
+            writer.WriteLine("CollisionID,time,xposition,zposition");
 
             int count = Mathf.Max(_collisionData._times.Count, _collisionData._positions.Count);
             for (int i = 0; i < count; i++)
@@ -131,7 +131,7 @@ public class Data
     {
         using(StreamWriter writer = File.AppendText(path))
         {
-            writer.WriteLine("sep=,");
+            //writer.WriteLine("sep=,");
             writer.WriteLine("TimeStamp,xPosition,zPosition,DistanceFromLast,rtTriggerPull,ltTriggerPull");
 
             int count = Mathf.Max(_raceData._timeStamps.Count, _raceData._positions.Count, _raceData._distances.Count);

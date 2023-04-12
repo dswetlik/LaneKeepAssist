@@ -7312,7 +7312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shouldTurnLeft: 0
   _shouldTurnRight: 0
-  _lka: 0
+  _lka: 1
   _ldw: 0
 --- !u!114 &2076195571
 MonoBehaviour:
@@ -7329,10 +7329,10 @@ MonoBehaviour:
   _trackScene:
     m_Handle: 0
   _raceNumber: 0
-  _isTrainingRace: 1
-  _maxLaps: 4
+  _isTrainingRace: 0
+  _maxLaps: 10000
   _lapCount: 0
-  _collectData: 1
+  _collectData: 0
   finishTextObject: {fileID: 2049315674}
 --- !u!114 &2076195572
 MonoBehaviour:
@@ -7406,7 +7406,7 @@ MonoBehaviour:
     applyPositionZ: 1
     applyPosition2D: 1
     retainLocalPosition: 0
-    direction: -1
+    direction: 1
     applyRotationX: 1
     applyRotationY: 1
     applyRotationZ: 1
@@ -7427,12 +7427,12 @@ MonoBehaviour:
     size: 1
     percent: 0.9029068800000014
   _finalResult:
-    position: {x: 55.608234, y: 0, z: 29.454256}
+    position: {x: 64.29383, y: 0, z: 29.153894}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.9999371, y: 0, z: -0.011213794}
+    forward: {x: -0.99998355, y: 0, z: 0.005729232}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.9594304000000018
+    percent: 0.9029068800000014
   _mode: 0
   _autoProject: 1
   _subdivide: 4
