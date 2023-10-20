@@ -1,0 +1,9 @@
+# LaneKeepAssist
+
+My advisor and I looked into the potential benefits haptic feedback systems may have on a person's ability to learn a novel control scheme. Our initial topic of interest was to build a true mixed-initiative system, but we changed our minds after stumbling upon research performed by the U.S. Department of Transportation. This paper discussed and analyzed the effects that haptic feedback systems integrated into modern vehicles (Lane Keep Assist and Lane Departure Warning) have on the speed and accuracy of drivers. We wanted to see if this would carry over into a foreign control scheme, as it could be a useful tool in training new operators.
+
+To run the experiment, we utilized Unity3D, a game development engine, and Sony's DualSense controller, which has integrated haptic feedback in the shoulder triggers. Our participants were split into three groups: Control, Lane Departure Warning (LDW), Lane Keep Assist (LKA), and asked to navigate through two rounds of three tracks for 5 laps each. LDW and LKA had haptic feedback guidance for the first round, where LDW would intervene only if the participant started going off-track and LKA would continuously lead the participant to the optimal route on the track.
+
+Our preliminary results were promising: LDW and LKA had fewer collisions and a higher rate of speed on average. Even better, this effect persisted in the second round where haptic feedback assistance was turned off for those groups. We had wanted to do a follow-up round of experiments where we controlled for participant handedness and added collision event penalties (many of the Control group participants, after learning there was no penalty, started hard cutting corners), but the semester came to an end too quickly to do so.
+
+If you would like to learn more about this, check out the poster that I linked or send me a message. I would be happy to discuss our findings or the experiment!
